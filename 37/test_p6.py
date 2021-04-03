@@ -14,7 +14,7 @@ class TestP6(unittest.TestCase):
     def setUp(self):
         self.timeout = 8
         self.maxDiff = None
-        self.script_name = "./main"
+        self.script_name = "./37"
 
     def run_testcase(self, num):
         with open(os.path.join("input", f"{num}.txt")) as fin:
@@ -55,6 +55,14 @@ class TestP6(unittest.TestCase):
     def test_10_no_query_large(self):
         self.run_testcase(10)
 
+    def test_11_mix_large(self):
+        self.run_testcase(11)
+
+    def test_12_only_query_large(self):
+        self.run_testcase(12)
+
+    def test_13_no_query_large(self):
+        self.run_testcase(13)
 
 if __name__ == "__main__":
     unittest.main()
