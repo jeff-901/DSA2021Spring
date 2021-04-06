@@ -55,14 +55,26 @@ class TestP6(unittest.TestCase):
     def test_10_no_query_large(self):
         self.run_testcase(10)
 
-    def test_11_mix_large(self):
+    def test_11_reverse(self):
         self.run_testcase(11)
 
-    def test_12_only_query_large(self):
+    def test_12_reverse_query_large(self):
         self.run_testcase(12)
 
-    def test_13_no_query_large(self):
+    def test_13_no_delete_large(self):
         self.run_testcase(13)
+    
+    def test_14_insert_reverse_large(self):
+        self.run_testcase(14)
+
+    def test_15_delete_to_zero(self):
+        self.run_testcase(15)
+    
+    def test_16_delete_to_zero(self):
+        self.run_testcase(16)
+    
+    def test_17_reverse_insert_delete_many(self):
+        self.run_testcase(17)
 
 if __name__ == "__main__":
     unittest.main()
