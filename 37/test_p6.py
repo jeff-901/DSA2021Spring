@@ -76,5 +76,8 @@ class TestP6(unittest.TestCase):
     def test_17_reverse_insert_delete_many(self):
         self.run_testcase(17)
 
+    def test_18_query_pressure(self):
+        self.run_testcase(18)
+
 if __name__ == "__main__":
     unittest.main()
