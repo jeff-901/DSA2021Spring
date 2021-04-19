@@ -3,22 +3,56 @@ import sys
 import random
 
 
-def generate():
-    a = random.randint(1, 10)
-    b = random.randint(1, 10)
-    return f"{a} {b}\n"
+def generate(n):
+    def _generate_tree(n, parent_idx, pos):
+        if n == 0:
+            return
+        nodes.append([-1, -1])
+        idx = len(nodes) - 1
+        if parent_idx != -1:
+            if pos == "left":
+                nodes[parent_idx][0] = idx
+            else:
+                nodes[parent_idx][1] = idx
+        if n == 1:
+            return
+        l = random.randint(0, n - 1)
+        r = n - 1 - l
+        left = _generate_tree(l, idx, "left")
+        right = _generate_tree(r, idx, "right")
+    MAX_KEY = 10 ** 9
+    nodes = [(-1, -1)]
+    keys = random.sample(range(1, MAX_KEY + 1), k=n)
+    _generate_tree(n, -1, None)
+    data = f"{n}\n" + \
+        "".join([f"{keys[i]} {nodes[i+1][0]} {nodes[i+1][1]}\n" for i in range(n)])
+    return data
 
 
 def answer(input_data):
-    return str(sum([int(x) for x in input_data.split()]))
+    def _search(idx, key):
+        if idx == -1:
+            return 0
+        if data[idx][0] == key:
+            return 1
+        if data[idx][0] > key:
+            return _search(data[idx][1], key)
+        else:
+            return _search(data[idx][2], key)
+    data = [[int(x) for x in row.split()]
+            for row in input_data.split("\n")[1:-1]]
+    data = [None] + data
+    ans = sum([_search(1, k) for k, _, _ in data[1:]])
+    return f"{ans}\n"
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} [name]")
+    if len(sys.argv) != 3:
+        print(f"Usage: {sys.argv[0]} [name] [N_NODES]")
         sys.exit(1)
 
     name = sys.argv[1]
+    N_NODES = int(sys.argv[2])
 
     input_dir = "input"
     output_dir = "output"
@@ -37,7 +71,7 @@ if __name__ == "__main__":
         print(f"The file {output_path} already exists!")
         sys.exit(1)
 
-    input_data = generate()
+    input_data = generate(N_NODES)
     ans = answer(input_data)
 
     with open(input_path, "w") as fout:

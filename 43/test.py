@@ -28,6 +28,9 @@ class Test(unittest.TestCase):
     def test_03_sample(self):
         self.run_testcase("sample3")
 
+    def test_04_node8(self):
+        self.run_testcase("node8")
+
 
 if __name__ == "__main__":
     unittest.main()
