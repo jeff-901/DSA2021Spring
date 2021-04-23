@@ -30,6 +30,9 @@ class Test(unittest.TestCase):
 
     def test_04_node8(self):
         self.run_testcase("node8")
+    
+    def test_05_node1000000(self):
+        self.run_testcase("node_1000000")
 
 
 if __name__ == "__main__":
