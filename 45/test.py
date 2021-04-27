@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         self.run_testcase("sample4")
 
     def test_05_small(self):
-        for i in range(1, 100):
+        for i in range(48, 50):
             self.run_testcase(f"small{i}")
 
 
