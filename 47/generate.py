@@ -4,13 +4,32 @@ import random
 
 
 def generate():
-    a = random.randint(1, 10)
-    b = random.randint(1, 10)
-    return f"{a} {b}\n"
+    L = list()
+    n = random.randint(8, 12)
+    for _ in range(n):
+        L.append(str(random.randint(0, 1)))
+    s = "".join(L)
+    return f"1\n{s}\nx\n"
 
 
 def answer(input_data):
-    return str(sum([int(x) for x in input_data.split()]))
+    s = input_data.split("\n")[1]
+    front = list()
+    back = list()
+    while s:
+        should_break = True
+        for i in range(1, len(s) // 2 + 1):
+            if s[:i] == s[-i:]:
+                front.append(s[:i])
+                back.append(s[:i])
+                s = s[i:-i]
+                should_break = False
+                break
+        if should_break:
+            front.append(s)
+            break
+    back.reverse()
+    return "|".join(front + back) + "\n"
 
 
 if __name__ == "__main__":
