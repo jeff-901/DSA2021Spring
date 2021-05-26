@@ -3,10 +3,12 @@ import subprocess
 import os
 import sys
 
+import generate
+
 
 class Test(unittest.TestCase):
     def setUp(self):
-        self.timeout = 5
+        self.timeout = 3
         self.maxDiff = None
         self.script_name = os.path.join(".", "bin", os.listdir("./bin")[0])
 
@@ -20,13 +22,13 @@ class Test(unittest.TestCase):
         self.assertEqual(output, ans)
 
     def test_01_sample(self):
-        self.run_testcase("1")
+        self.run_testcase("sample1")
     
     def test_02_sample(self):
-        self.run_testcase("2")
+        self.run_testcase("sample2")
     
     def test_03_sample(self):
-        self.run_testcase("3")
+        self.run_testcase("sample3")
 
     def test_04_sample(self):
         self.run_testcase("4")
