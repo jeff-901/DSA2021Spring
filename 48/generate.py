@@ -4,13 +4,36 @@ import random
 
 
 def generate():
-    a = random.randint(1, 10)
-    b = random.randint(1, 10)
-    return f"{a} {b}\n"
-
-
-def answer(input_data):
-    return str(sum([int(x) for x in input_data.split()]))
+    n = 5
+    q = 5
+    input_data = f"{n} {q}\n"
+    ans = list()
+    L = list()
+    for _ in range(n):
+        L.append(random.randint(-n, n))
+    input_data += " ".join([str(x) for x in L]) + "\n"
+    for _ in range(q):
+        op = random.choice([1, 2, 4])
+        if op == 1:
+            p = random.randint(-n, n)
+            k = random.randint(0, len(L))
+            input_data += f"1 {p} {k}\n"
+            L.insert(k, p)
+        elif op == 2:
+            k = random.randint(1, len(L))
+            input_data += f"2 {k}\n"
+            L.pop(k-1)
+        elif op == 4:
+            l = random.randint(1, len(L))
+            r = random.randint(1, len(L))
+            if (l > r):
+                (l, r) = (r, l)
+            input_data += f"4 {l} {r}\n"
+            ans.append(str(max(L[l-1:r])))
+        else:
+            pass
+    ans = "\n".join(ans) + "\n" if ans else ""
+    return input_data, ans
 
 
 if __name__ == "__main__":
@@ -37,8 +60,7 @@ if __name__ == "__main__":
         print(f"The file {output_path} already exists!")
         sys.exit(1)
 
-    input_data = generate()
-    ans = answer(input_data)
+    input_data, ans = generate()
 
     with open(input_path, "w") as fout:
         fout.write(input_data)

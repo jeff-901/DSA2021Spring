@@ -3,6 +3,8 @@ import subprocess
 import os
 import sys
 
+from generate import generate
+
 
 class Test(unittest.TestCase):
     def setUp(self):
@@ -27,6 +29,13 @@ class Test(unittest.TestCase):
 
     def test_03_sample3(self):
         self.run_testcase("sample3")
+
+    def test_04(self):
+        for _ in range(100):
+            input_data, ans = generate()
+            output = subprocess.check_output([self.script_name], text=True,
+                                             timeout=self.timeout, input=input_data)
+            self.assertEqual(output, ans, [input_data])
 
 
 if __name__ == "__main__":
