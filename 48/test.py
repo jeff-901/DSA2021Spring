@@ -31,11 +31,14 @@ class Test(unittest.TestCase):
         self.run_testcase("sample3")
 
     def test_04(self):
-        for _ in range(100):
+        for i in range(1000):
             input_data, ans = generate()
             output = subprocess.check_output([self.script_name], text=True,
                                              timeout=self.timeout, input=input_data)
             self.assertEqual(output, ans, [input_data])
+
+    def test_05_mixed1(self):
+        self.run_testcase("mixed1")
 
 
 if __name__ == "__main__":

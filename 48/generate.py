@@ -4,8 +4,8 @@ import random
 
 
 def generate():
-    n = 5
-    q = 5
+    n = 100
+    q = 200
     input_data = f"{n} {q}\n"
     ans = list()
     L = list()
@@ -13,7 +13,10 @@ def generate():
         L.append(random.randint(-n, n))
     input_data += " ".join([str(x) for x in L]) + "\n"
     for _ in range(q):
-        op = random.choice([1, 2, 4])
+        if not L:
+            op = 1
+        else:
+            op = random.randint(1, 6)
         if op == 1:
             p = random.randint(-n, n)
             k = random.randint(0, len(L))
@@ -23,6 +26,15 @@ def generate():
             k = random.randint(1, len(L))
             input_data += f"2 {k}\n"
             L.pop(k-1)
+        elif op == 3:
+            l = random.randint(1, len(L))
+            r = random.randint(1, len(L))
+            p = random.randint(-n, n)
+            if (l > r):
+                (l, r) = (r, l)
+            input_data += f"3 {l} {r} {p}\n"
+            for i in range(l-1, r):
+                L[i] += p
         elif op == 4:
             l = random.randint(1, len(L))
             r = random.randint(1, len(L))
@@ -30,8 +42,16 @@ def generate():
                 (l, r) = (r, l)
             input_data += f"4 {l} {r}\n"
             ans.append(str(max(L[l-1:r])))
-        else:
-            pass
+        elif op == 5:
+            l = random.randint(1, len(L))
+            r = random.randint(1, len(L))
+            if (l > r):
+                (l, r) = (r, l)
+            input_data += f"5 {l} {r}\n"
+            L[l-1:r] = reversed(L[l-1:r])
+        else:  # op == 6
+            L.remove(max(L))
+            input_data += f"6\n"
     ans = "\n".join(ans) + "\n" if ans else ""
     return input_data, ans
 
